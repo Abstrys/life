@@ -1,0 +1,6 @@
+'Life pattern by Eron Hennessey
+'creates a never-ending oscillator.
+10 3
+0010000100
+1101111011
+0010000100

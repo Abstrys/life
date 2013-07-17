@@ -1,0 +1,65 @@
+<!DOCTYPE html SYSTEM "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head><title>The Game of Life</title></head>
+    <body>
+        <h2>The Game of Life</h2>
+        <p>The <i>Game of Life</i> is an early example of a cellular automaton: a computer
+            simulation of life patterns of societal growth and death. It was devised by John Conway
+            in 1970.</p>
+        <h3>Rules</h3>
+        <p>The game proceeds according to the following set of rules:</p>
+        <ul>
+            <li>Cells are laid out on a square grid in a pattern of the user's choice.</li>
+            <li>Cells are considered to have neighbors if any of the cells immediately surrounding
+            it are filled with other living cells.</li>
+            <li>For every iteration of the simulation:
+                <ul>
+                    <li>A cell with fewer than two live neighbors dies.</li>
+                    <li>A cell with two or three live neighbors lives unchanged to the next iteration.</li>
+                    <li>A cell with more than three live neighbors dies.</li>
+                    <li>An empty space with exactly three neighbors spawns a new living cell.</li>
+                </ul>
+            </li>
+            <li>The simulation continues until there are no living cells, or until the simulation
+                has achieved a steady state (no changes between iterations).</li>
+        </ul>
+        <p>A rather complete article detailing the history of <i>Life</i> appears at Wikipedia: <a
+                href="http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Conway's Game of
+                Life</a>.</p>
+        <h3>Issues with implementation</h3>
+        <h4>Edges</h4>
+        <p>A major issue that must be solved when creating a computer simulation of Life is what to
+            do with cells on the edges of the grid?</p>
+        <p>Cells at the edge have an incomplete set of neighbors&mdash;these must either be
+            added to the grid (increasing the grid size), simulated (faked somehow), or ignored
+            (breaking the simulation at the edges).</p>
+        <h4>Movement</h4>
+        <p>Another issue, the solution of which also depends on the edge behavior, is what happens
+            when the entire collection of cells grows beyond the constraints of the grid, or moves
+            completely off of the grid?</p>
+        <p>This includes the issue where two sub-groups of cells move in opposite directions,
+            leaving a central clear area, but expanding the edges of the simulation. This could
+            quickly become a memory issue if the grid is stored as an array in memory.</p>
+        <h3>Solutions</h3>
+        <h4>Walls</h4>
+        <p>The first, and simplest, solution to these issues is to regard the edges of the grid as
+            walls. This breaks the simulation at the edges, but constrains it to the initial grid
+            size, removing any other issues with regards to orphaned groups, expanding populations,
+            et cetera.</p>
+        <h4>Mirrors</h4>
+        <p>As a variation of the walls solution, the walls could be made reflective, so that each
+            cell sees another cell next to it when it is in a square next to a wall. This is only
+            slightly more complex than the walls scheme, and doesn't break the simulation as
+            much&mdash;but it does change things a bit.</p>
+        <h4>Expanding Grid</h4>
+        <p>The grid could also grow (and shrink) according to the needs of the simulation. This
+            provides the most complete solution to the issues above, but requires a more complex
+            and careful implementation to avoid issues with finite computer memory and processing
+            speed.</p>
+        <h4>No Grid</h4>
+        <p>One interesting way of solving these issues is to do away with the grid scheme, and
+            regard each live cell as an independent unit. This could require quite a bit of
+            processing time, as each cell will need to be considered independently of the others,
+            and a way must be devised of finding which cells are close to each other.</p>
+    </body>
+</html>

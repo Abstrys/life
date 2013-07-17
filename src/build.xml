@@ -1,0 +1,52 @@
+<project name="Life" default="app" basedir=".">
+	<description>Build file for the Life Java App.</description>
+
+	<!-- set global properties for this build -->
+	<property name="builddir" location="./build"/>
+	<property name="distdir"  location="./dist"/>
+	<property name="docsdir"  location="./docs"/>
+	<property name="packagedir" value="abstrys/games/Life"/>
+
+	<property name="basesrc" value="Grid.java GamePanel.java LifePanel.java"/>
+	<property name="appsrc" value="LifeApp.java"/>
+	<property name="appletsrc" value="LifeApplet.java"/>
+
+	<!-- THE BUILD TARGETS -->
+	<target name="initbuild">
+		<tstamp/> <!-- Create the time stamp -->
+		<!-- create the necessary directories -->
+		<mkdir dir="${builddir}"/>
+		<mkdir dir="${distdir}/${DSTAMP}"/>
+	</target>
+
+	<target name="app" depends="initbuild" description="build the LifeApp desktop application">
+		<javac includes="${basesrc} ${appsrc} ${appletsrc}" srcdir="." destdir="${builddir}" listfiles="yes"/>
+		<jar jarfile="${distdir}/${DSTAMP}/Life.jar" basedir="${builddir}">
+			<fileset dir="${builddir}/${packagedir}"/>
+			<fileset dir="${builddir}/abstrys/games"/>
+			<manifest>
+				<attribute name="Main-Class" value="abstrys/games/LifeApp"/>
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="docs" description="build the documentation">
+		<mkdir dir="${docsdir}"/>
+		<javadoc destdir="${docsdir}">
+			<fileset dir=".">
+				<include name="*.java"/>
+				<exclude name="*Test*"/>
+			</fileset>
+		</javadoc>
+	</target>
+
+	<target name="clean" description="clean up the build files">
+		<delete dir="${builddir}"/>
+	</target>
+
+	<target name="spotless" depends="clean" description="clean up everything">
+		<delete dir="${distdir}"/>
+		<delete dir="${docsdir}"/>
+	</target>
+</project>
+
